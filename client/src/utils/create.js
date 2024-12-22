@@ -25,6 +25,7 @@ export default async function createBounty() {
           
             const response = await api.post("/create",{
                 id:id,
+                creator:walletAddress,
                 title:title,
                 description:description,
                 links:links,

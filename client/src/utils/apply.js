@@ -1,5 +1,5 @@
 import ABI from "../abi/test.json"
-import { web3MemoryStore,web3PersistedStore } from "../context/web3Instance";
+import { web3MemoryStore,web3PersistedStore } from "../context/web3Instance.js";
 import api from "./axios.js";
 
 
@@ -8,7 +8,7 @@ const CONTRACT_ADDRESS = "0x358AA13c52544ECCEF6B0ADD0f801012ADAD5eE3"
 const id = "124";
 const links = ["o.com","p.com"];
 
-export default async function availBounty() {
+export default async function apply() {
 
     const walletAddress = web3PersistedStore.getState().walletAddress
     const web3 = web3MemoryStore.getState().web3Instance;

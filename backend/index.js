@@ -7,6 +7,17 @@ app.use(cors());
 app.use(express.json());
 
 
+app.get("/getAllBounties", async (req,res) => {
+    try {
+        const bounties = await Bounty.find();
+        console.log(bounties);
+        res.status(200).json({message:bounties});
+    } catch (error) {
+        res.status(400).json({message:error.message});
+    }
+})
+
+
 app.post("/create", async (req,res) => {
     const details = req.body;
     console.log(details)
@@ -14,6 +25,7 @@ app.post("/create", async (req,res) => {
 
         await Bounty.create({
             id:details.id,
+            creator:details.creator,
             title:details.title,
             description:details.description,
             links:details.links,
@@ -53,9 +65,28 @@ app.post("/apply", async (req,res) => {
     }
     
 
+});
+
+app.post("/assign", async (req,res) => {
+    const details = req.body;
+
+    try {
+        await Bounty.findOneAndUpdate(
+            { id: details.id },
+            {
+                isAvailed:true,
+                availer:details.applicantWalletAddress
+            }
+        );
+        res.statusCode(200).json({message:"Assigned Successfully"});
+
+    } catch (error) {
+        res.status(400).json({message:error.message});
+    }
 })
 
 
-app.listen(3000,() => {
+
+app.listen(9000,() => {
     console.log("server running");
 })

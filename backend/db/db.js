@@ -8,6 +8,10 @@ const Bounties = new mongoose.Schema({
         required:true,
         unique:true,
     },
+    creator:{
+        type:String,
+        required:true,
+    },
     title:{
         type:String,
         required:true,
