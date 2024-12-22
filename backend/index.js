@@ -7,7 +7,6 @@ app.use(cors());
 app.use(express.json());
 
 
-
 app.post("/create", async (req,res) => {
     const details = req.body;
     console.log(details)
