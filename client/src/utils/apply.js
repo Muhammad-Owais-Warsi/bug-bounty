@@ -5,6 +5,7 @@ import api from "./axios.js";
 
 const CONTRACT_ADDRESS = "0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE"
 
+// for testing only
 const id = "124";
 const links = ["o.com","p.com"];
 
@@ -28,6 +29,7 @@ export default async function apply() {
             return {sucess:response.data.message,error:null}
  
         }
+        return {success:null,error:"Unknown error occured. Please try again later."}
     } catch (error) {
         return {success:null,error:error}
     }

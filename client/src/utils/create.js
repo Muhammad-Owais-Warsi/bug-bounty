@@ -4,6 +4,7 @@ import api from "./axios.js"
 
 const CONTRACT_ADDRESS = "0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE"
 
+//for testing only
 const id="124"
 const title="test"
 const description="test"
@@ -34,7 +35,7 @@ export default async function createBounty() {
 
             return {success:response.data.message,error:null}
         }
-        return {success:null,error:"Unknown error occured.Please try again later"}
+        return {success:null,error:"Unknown error occured. Please try again later"}
     } catch (error) {
         return {success:null,error:error.message};
     }
