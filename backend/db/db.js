@@ -51,6 +51,22 @@ const Bounties = new mongoose.Schema({
 
 });
 
-const Bounty = new mongoose.model("Bounty",Bounties);
+const Availers = new mongoose.Schema({
+    availer:{
+        type:String,
+        required:true,
+        unique:true,
+    },
+    description:{
+        type:String,
+    },
+    submissions:{
+        type:[String],
+        required:true
+    }
+})
 
-export default Bounty;
+const Bounty = new mongoose.model("Bounty",Bounties);
+const Availer = new mongoose.model("Availer",Availers);
+
+export {Bounty ,Availer};

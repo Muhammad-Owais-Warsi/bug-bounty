@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors"
-import Bounty from "./db/db.js";
+import { Bounty,Availer } from "./db/db.js";
+
+
 
 const app = express();
 app.use(cors());
@@ -12,6 +14,24 @@ app.get("/getAllBounties", async (req,res) => {
         const bounties = await Bounty.find();
         console.log(bounties);
         res.status(200).json({message:bounties});
+    } catch (error) {
+        res.status(400).json({message:error.message});
+    }
+});
+
+app.post("/getAssignedBounties", async (req,res) => {
+    try {
+        console.log("hello");
+        const details = req.body;
+        console.log(details);
+        const bounties = await Bounty.find({
+           availer: details.walletAddress // Use `where` for filtering
+        });
+        console.log("b", bounties);
+  
+        res.status(200).json({message:bounties});
+  
+
     } catch (error) {
         res.status(400).json({message:error.message});
     }
@@ -47,8 +67,12 @@ app.post("/apply", async (req,res) => {
     const details = req.body;
 
     try {
-        await Bounty.findOneAndUpdate(
-            { id: details.id },
+        
+        const result = await Bounty.findOneAndUpdate(
+            { 
+                id: details.id,
+                "applicants.address":{ $ne: details.address}
+            },
             {
                 $push: { 
                     applicants: { 
@@ -58,6 +82,10 @@ app.post("/apply", async (req,res) => {
                 }
             }
         );
+        if(result == NULL) {
+            res.status(400).json({message:"Already applied for the bounty"});
+            return ;
+        }
 
         res.status(200).json({message:"Successfuly Applied for the Bounty"});
     } catch (error) {
@@ -78,6 +106,12 @@ app.post("/assign", async (req,res) => {
                 availer:details.applicantWalletAddress
             }
         );
+
+        await Availer.create({
+            availer:details.applicantWalletAddress,
+            submissions:details.submissions
+        });
+        
         res.statusCode(200).json({message:"Assigned Successfully"});
 
     } catch (error) {

@@ -3,7 +3,7 @@ import { web3MemoryStore,web3PersistedStore } from "../context/web3Instance.js";
 import api from "./axios.js";
 
 
-const CONTRACT_ADDRESS = "0x358AA13c52544ECCEF6B0ADD0f801012ADAD5eE3"
+const CONTRACT_ADDRESS = "0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE"
 
 const id = "124";
 const links = ["o.com","p.com"];
@@ -17,7 +17,7 @@ export default async function apply() {
     const contractInstance = new web3.eth.Contract(ABI,CONTRACT_ADDRESS);
 
     try {
-        const result = await contractInstance.methods.avail(id,links).send({from:walletAddress});
+        const result = await contractInstance.methods.Apply(id).send({from:walletAddress});
         if(result) {
             const response = api.post("/apply",{
                 id:id,
