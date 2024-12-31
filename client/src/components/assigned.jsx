@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import api from "../utils/axios";
-import { web3PersistedStore } from "../context/web3Instance";
+import { useWeb3Store, web3PersistedStore } from "../context/web3Instance";
+import { Navigate } from "react-router-dom";
 
 export default function GetAssignedBounties() {
 
     const walletAddress = web3PersistedStore.getState().walletAddress
+    const { web3, isConnected } = useWeb3Store();
 
     const [bounties, setBounties] = useState([]);
     const [error, setError] = useState();
@@ -17,7 +19,7 @@ export default function GetAssignedBounties() {
                     walletAddress: walletAddress
                 });
 
-                console.log(response)
+       
                 setBounties(response.data.message);
 
             } catch (error) {
@@ -27,7 +29,11 @@ export default function GetAssignedBounties() {
 
         getAssignedBounties();
 
-    }, [])
+    }, [walletAddress]);
+
+    if (!isConnected || !web3) {
+        return <Navigate to="/" />;
+    }
 
     return (
         <>

@@ -2,7 +2,7 @@ import {  web3MemoryStore, web3PersistedStore } from "../context/web3Instance";
 import ABI from "../abi/test.json";
 import api from "./axios.js"
 
-const CONTRACT_ADDRESS = "0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE"
+const CONTRACT_ADDRESS = "0x9396B453Fad71816cA9f152Ae785276a1D578492"
 
 //for testing only
 const id="124"
@@ -21,7 +21,10 @@ export default async function createBounty() {
 
    
     try {
-        const result = await contractInstance.methods.create(id,amount).send({from:walletAddress});
+        const result = await contractInstance.methods.create(id,"1").send({
+            from:walletAddress,
+            value:web3.utils.toWei("0.00000001","ether")
+        });
         if(result) {
           
             const response = await api.post("/create",{

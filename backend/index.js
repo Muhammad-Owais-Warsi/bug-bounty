@@ -21,21 +21,27 @@ app.get("/getAllBounties", async (req,res) => {
 
 app.post("/getAssignedBounties", async (req,res) => {
     try {
-        console.log("hello");
         const details = req.body;
-        console.log(details);
         const bounties = await Bounty.find({
-           availer: details.walletAddress // Use `where` for filtering
+           availer: details.walletAddress
         });
-        console.log("b", bounties);
-  
         res.status(200).json({message:bounties});
-  
-
     } catch (error) {
         res.status(400).json({message:error.message});
     }
-})
+});
+
+app.post("/getCreatedBounties", async (req,res) => {
+    const details = req.body;
+    try {
+        const bounties = await Bounty.find({
+            creator:details.walletAddress
+        });
+        res.status(200).json({message:bounties});
+    } catch (error) {
+        res.status(400).json({message:error.message});   
+    }
+});
 
 
 app.post("/create", async (req,res) => {

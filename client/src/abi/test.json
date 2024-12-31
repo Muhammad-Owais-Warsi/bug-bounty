@@ -20,7 +20,7 @@
 				"type": "string"
 			},
 			{
-				"internalType": "address",
+				"internalType": "address payable",
 				"name": "applicant",
 				"type": "address"
 			}
@@ -36,14 +36,66 @@
 				"internalType": "string",
 				"name": "id",
 				"type": "string"
+			}
+		],
+		"name": "claim",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "id",
+				"type": "string"
 			},
 			{
 				"internalType": "uint256",
-				"name": "amount",
+				"name": "deadline",
 				"type": "uint256"
 			}
 		],
 		"name": "create",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "id",
+				"type": "string"
+			}
+		],
+		"name": "refund",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "id",
+				"type": "string"
+			}
+		],
+		"name": "release",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "id",
+				"type": "string"
+			}
+		],
+		"name": "submit",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -69,19 +121,39 @@
 				"type": "uint256"
 			},
 			{
-				"internalType": "address",
+				"internalType": "address payable",
 				"name": "creator",
 				"type": "address"
 			},
 			{
-				"internalType": "address",
+				"internalType": "address payable",
 				"name": "availer",
 				"type": "address"
+			},
+			{
+				"internalType": "bool",
+				"name": "isAvailed",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "isSubmitted",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "deadline",
+				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
 				"name": "SubmissionTime",
 				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "isActive",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",

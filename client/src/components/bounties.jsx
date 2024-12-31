@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../utils/axios.js";
 import apply from "../utils/apply.js";
+import refund from "../utils/refund.js";
 
 export default function Bounties() {
 
@@ -42,6 +43,7 @@ export default function Bounties() {
                             >
                                 Apply 
                             </button>
+                            <button onClick={refund}>refund</button>
                         </li>
                     ))
                 ) : (

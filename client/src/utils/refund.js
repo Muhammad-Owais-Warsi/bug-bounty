@@ -9,7 +9,7 @@ const CONTRACT_ADDRESS = "0x9396B453Fad71816cA9f152Ae785276a1D578492"
 const id = "124";
 const links = ["o.com","p.com"];
 
-export default async function apply() {
+export default async function refund() {
 
     const walletAddress = web3PersistedStore.getState().walletAddress
     const web3 = web3MemoryStore.getState().web3Instance;
@@ -18,17 +18,7 @@ export default async function apply() {
     const contractInstance = new web3.eth.Contract(ABI,CONTRACT_ADDRESS);
 
     try {
-        const result = await contractInstance.methods.Apply(id).send({from:walletAddress});
-        if(result) {
-            const response = api.post("/apply",{
-                id:id,
-                links:links,
-                address:walletAddress
-            })
-
-            return {sucess:response.data.message,error:null}
- 
-        }
+        const result = await contractInstance.methods.refund(id).send({from:walletAddress});
         return {success:null,error:"Unknown error occured. Please try again later."}
     } catch (error) {
         return {success:null,error:error}
